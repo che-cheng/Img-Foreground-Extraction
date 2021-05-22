@@ -34,3 +34,5 @@
 #  self-define
 .DS_Store
 .vscode
+/build
+/build_debug

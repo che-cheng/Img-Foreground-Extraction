@@ -1,3 +1,10 @@
+/**
+ * This file is written according to the part of the paper.
+ * "In Defense of Color-based Model-free Tracking,"
+ * Author: Horst Possegger, Thomas Mauthner and Horst Bischof
+ * For more information to see https://github.com/foolwood/DAT
+*/
+
 #ifndef FORE_EXTRACTOR_HPP
 #define FORE_EXTRACTOR_HPP
 
@@ -20,21 +27,28 @@ class fore_extractor {
 
   /* main function */
   cv::Mat extract(const cv::Mat frame, const cv::Rect rect);
-
-  ~fore_extractor();
+  const cv::Mat& GetProbMap() const {return prob_map_;}
 
  private:
   /* data */
-  config cfg;
-  cv::Mat image;
+  config cfg_;
+  
+  cv::Mat image_;
+  cv::Mat result_;
+  cv::Rect rect_;
+
   cv::Mat prob_lut_;
   cv::Mat prob_map_;
 
-  void GetForegroundBackgroundProbs(const cv::Mat frame, cv::Rect obj_rect);
-  void GetAdaptiveTh();
+  double threshold_;
+  int width_;
+  int height_;
 
   /* funtions */
   void default_parameters();
+  void GetForegroundBackgroundProbs();
+  void GetAdaptiveTh();
+  void OutputResult();
 };
 
 #endif
